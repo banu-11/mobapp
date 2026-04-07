@@ -1,3 +1,5 @@
+flutter pub get
+
 dependencies:
   flutter:
     sdk: flutter
