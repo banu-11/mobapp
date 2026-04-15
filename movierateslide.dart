@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -121,119 +120,123 @@ class _MoviePageState extends State<MoviePage> {
         onHorizontalDragEnd: (details) {
           nextMovie();
         },
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Movie Image (using placeholder since assets may not exist)
-              Container(
-                height: 200,
-                width: double.infinity,
-                color: Colors.grey.shade300,
-                child: Icon(
-                  Icons.movie,
-                  size: 100,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-              
-              // Alternative: If you have actual images, use this:
-              // Image.asset(movie["image"], height: 200, fit: BoxFit.cover),
-
-              const SizedBox(height: 20),
-
-              Text(
-                movie["name"],
-                style: const TextStyle(
-                  fontSize: 28, 
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-
-              const SizedBox(height: 10),
-
-              Text(
-                "Genre: ${movie["genre"]}",
-                style: const TextStyle(fontSize: 18),
-              ),
-
-              const SizedBox(height: 10),
-
-              // Show average rating with stars
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.star, color: Colors.amber, size: 24),
-                  const SizedBox(width: 5),
-                  Text(
-                    "Average Rating: ${movie["rating"].toStringAsFixed(1)}/5",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+        child: SingleChildScrollView(  // ✅ Wrap with SingleChildScrollView to prevent overflow
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Movie Image (using placeholder since assets may not exist)
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                  color: Colors.grey.shade300,
+                  child: Icon(
+                    Icons.movie,
+                    size: 100,
+                    color: Colors.grey.shade600,
                   ),
-                ],
-              ),
-              
-              const SizedBox(height: 5),
-              
-              Text(
-                "Based on ${movie["peopleCount"]} ratings",
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
                 ),
-              ),
+                
+                // Alternative: If you have actual images, use this:
+                // Image.asset(movie["image"], height: 200, fit: BoxFit.cover),
 
-              const SizedBox(height: 30),
+                const SizedBox(height: 20),
 
-              const Text(
-                "Your Rating",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 10),
-
-              // ⭐ Stars for user rating
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(5, (index) {
-                  return IconButton(
-                    icon: Icon(
-                      Icons.star,
-                      size: 40,
-                      color: index < userRating
-                          ? Colors.amber
-                          : Colors.grey,
-                    ),
-                    onPressed: () {
-                      updateRating(index + 1);
-                    },
-                  );
-                }),
-              ),
-              
-              if (userRating > 0)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    "You rated: $userRating stars",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue,
-                    ),
+                Text(
+                  movie["name"],
+                  style: const TextStyle(
+                    fontSize: 28, 
+                    fontWeight: FontWeight.bold
                   ),
                 ),
 
-              const SizedBox(height: 30),
+                const SizedBox(height: 10),
 
-              const Text(
-                "👉 Swipe left to see next movie",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-            ],
+                Text(
+                  "Genre: ${movie["genre"]}",
+                  style: const TextStyle(fontSize: 18),
+                ),
+
+                const SizedBox(height: 10),
+
+                // Show average rating with stars
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.star, color: Colors.amber, size: 24),
+                    const SizedBox(width: 5),
+                    Text(
+                      "Average Rating: ${movie["rating"].toStringAsFixed(1)}/5",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                
+                const SizedBox(height: 5),
+                
+                Text(
+                  "Based on ${movie["peopleCount"]} ratings",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                const Text(
+                  "Your Rating",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+
+                const SizedBox(height: 10),
+
+                // ⭐ Stars for user rating
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(5, (index) {
+                    return IconButton(
+                      icon: Icon(
+                        Icons.star,
+                        size: 40,
+                        color: index < userRating
+                            ? Colors.amber
+                            : Colors.grey,
+                      ),
+                      onPressed: () {
+                        updateRating(index + 1);
+                      },
+                    );
+                  }),
+                ),
+                
+                if (userRating > 0)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      "You rated: $userRating stars",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+
+                const SizedBox(height: 30),
+
+                const Text(
+                  "👉 Swipe left to see next movie",
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                ),
+                
+                const SizedBox(height: 20), // Add extra bottom padding
+              ],
+            ),
           ),
         ),
       ),
